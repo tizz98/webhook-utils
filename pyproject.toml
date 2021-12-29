@@ -10,6 +10,10 @@ keywords = ["webhook", "utils", "utilities", "webhooks"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+httpx = {version = "^0.21.1", optional = true}
+
+[tool.poetry.extras]
+httpx = ["httpx"]
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
