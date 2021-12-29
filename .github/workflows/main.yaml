@@ -32,10 +32,10 @@ jobs:
       run: tox
     - name: Lint - isort
       run: tox -e isort-check
-      if: ${{ matrix.python-version }} == '3.8'
+      if: ${{ matrix.python-version == '3.8' }}
     - name: Lint - black
       run: tox -e black-check
-      if: ${{ matrix.python-version }} == '3.8'
+      if: ${{ matrix.python-version == '3.8' }}
     - name: Lint - flake8
       run: tox -e flake8
-      if: ${{ matrix.python-version }} == '3.8'
+      if: ${{ matrix.python-version == '3.8' }}

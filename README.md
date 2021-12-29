@@ -47,6 +47,43 @@ if not is_valid_signature:
     raise ValueError('Invalid signature')
 ```
 
+### Httpx
+
+`webhook-utils` has a built-in `httpx.Auth` class that can be used to
+automatically sign requests made with an `httpx.Client`.
+
+An `X-Webhook-Signature` header will be added to all `POST` requests.
+The signature will be generated using the `webhook_key` and the
+provided signature method (defaults to `sha256`).
+
+The header, signature, and http methods can be customized by passing
+the `header_name`, `gen_signature_method`, and `methods` keyword arguments.
+
+```shell
+pip install webhook-utils[httpx]
+```
+
+```python
+import httpx
+from webhook_utils.contrib.httpx_auth import WebhookAuth
+from webhook_utils.crypto import generate_sha1_signature
+
+# Basic usage
+auth = WebhookAuth("secret-key")
+client = httpx.Client(auth=auth)
+
+
+# Customized usage
+auth = WebhookAuth(
+    "secret-key",
+    header_name="My-Webhook-Signature",
+    gen_signature_method=generate_sha1_signature,
+    methods={"POST", "PUT"},
+)
+client = httpx.Client(auth=auth)
+client.post("https://example.com/webhook", json={"foo": "bar"})
+```
+
 ## Publishing to PYPI
 
 ```shell
