@@ -2,6 +2,10 @@
 
 A set of utilities for interacting with webhooks.
 
+[![Test Webhook Utils](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/tizz98/py-paas/tree/main/LICENSE)
+
 ## Installation
 
 ```shell
@@ -41,4 +45,13 @@ is_valid_signature = compare_sha256_signature(
 )
 if not is_valid_signature:
     raise ValueError('Invalid signature')
+```
+
+## Publishing to PYPI
+
+```shell
+poetry build
+# Verify that everything looks correct on test.pypi.org
+poetry publish -r testpypi
+poetry publish
 ```
