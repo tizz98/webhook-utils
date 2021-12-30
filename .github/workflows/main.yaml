@@ -41,3 +41,5 @@ jobs:
       if: ${{ matrix.python-version == '3.8' }}
     - name: Upload Coverage to Codecov
       uses: codecov/codecov-action@v2
+      # Only upload coverage for Python 3.8
+      if: ${{ matrix.python-version == '3.8' }}
