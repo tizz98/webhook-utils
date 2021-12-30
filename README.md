@@ -5,6 +5,8 @@ A set of utilities for interacting with webhooks.
 [![Test Webhook Utils](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/tizz98/py-paas/tree/main/LICENSE)
+[![codecov](https://codecov.io/gh/tizz98/webhook-utils/branch/main/graph/badge.svg?token=HYT07K0ZHQ)](https://codecov.io/gh/tizz98/webhook-utils)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/webhook-utils.svg)](https://pypi.python.org/pypi/webhook-utils/)
 
 ## Installation
 
@@ -82,6 +84,34 @@ auth = WebhookAuth(
 )
 client = httpx.Client(auth=auth)
 client.post("https://example.com/webhook", json={"foo": "bar"})
+```
+
+### FastAPI
+
+`webhook-utils` has a built-in `WebhookRouter` class that can be used to
+wrap a `fastapi.APIRouter` to automatically verify incoming request signatures.
+
+```shell
+pip install webhook-utils[fastapi]
+```
+
+```python
+from fastapi import FastAPI, APIRouter
+from webhook_utils.contrib.fastapi import WebhookRouter
+
+app = FastAPI()
+webhook_router = WebhookRouter(
+    APIRouter(prefix="/webhooks"),
+    webhook_key="secret",
+)
+
+
+@webhook_router.on("/demo-webhook")
+def demo_event_handler():
+    return {"status": "ok"}
+
+
+app.include_router(webhook_router.api_router)
 ```
 
 ## Publishing to PYPI
