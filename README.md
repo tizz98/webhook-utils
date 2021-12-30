@@ -86,6 +86,34 @@ client = httpx.Client(auth=auth)
 client.post("https://example.com/webhook", json={"foo": "bar"})
 ```
 
+### FastAPI
+
+`webhook-utils` has a built-in `WebhookRouter` class that can be used to
+wrap a `fastapi.APIRouter` to automatically verify incoming request signatures.
+
+```shell
+pip install webhook-utils[fastapi]
+```
+
+```python
+from fastapi import FastAPI, APIRouter
+from webhook_utils.contrib.fastapi import WebhookRouter
+
+app = FastAPI()
+webhook_router = WebhookRouter(
+    APIRouter(prefix="/webhooks"),
+    webhook_key="secret",
+)
+
+
+@webhook_router.on("/demo-webhook")
+def demo_event_handler():
+    return {"status": "ok"}
+
+
+app.include_router(webhook_router.api_router)
+```
+
 ## Publishing to PYPI
 
 ```shell
