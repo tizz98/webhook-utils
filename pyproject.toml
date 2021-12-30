@@ -11,9 +11,12 @@ keywords = ["webhook", "utils", "utilities", "webhooks"]
 [tool.poetry.dependencies]
 python = "^3.8"
 httpx = {version = "^0.21.1", optional = true}
+fastapi = {version = "^0.70.1", optional = true}
+requests = {version = "^2.26.0", optional = true}
 
 [tool.poetry.extras]
 httpx = ["httpx"]
+fastapi = ["fastapi", "requests"]
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
@@ -35,3 +38,6 @@ profile = 'black'
 
 [tool.black]
 target-version = ['py38']
+
+[tool.portray]
+modules = ["webhook_utils"]

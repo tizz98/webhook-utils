@@ -1,3 +1,5 @@
+"""Commonly used crypto functions for generating and comparing HMAC signatures."""
+
 from ._compare import (  # noqa: F401
     compare_md5_signature,
     compare_sha1_signature,
