@@ -64,7 +64,6 @@ class WebhookAuth(httpx.Auth):
 
         if request.method in self.methods:
             signature = self.gen_signature_method(request.content, self.webhook_key)
-            print(signature)
             request.headers[self.header_name] = signature
 
         yield request
