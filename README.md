@@ -1,12 +1,14 @@
 # Webhook Utils
 
-A set of utilities for interacting with webhooks.
+A set of utilities for interacting with [webhooks](https://webhooks.dev).
 
 [![Test Webhook Utils](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml/badge.svg?branch=main)](https://github.com/tizz98/webhook-utils/actions/workflows/main.yaml)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](https://github.com/tizz98/py-paas/tree/main/LICENSE)
 [![codecov](https://codecov.io/gh/tizz98/webhook-utils/branch/main/graph/badge.svg?token=HYT07K0ZHQ)](https://codecov.io/gh/tizz98/webhook-utils)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/webhook-utils.svg)](https://pypi.python.org/pypi/webhook-utils/)
+
+[Installation](#installation) | [Usage](#usage) | [HTTPX](#httpx) | [FastAPI](#fastapi) | [Contributing](CONTRIBUTING.md)
 
 ## Installation
 
