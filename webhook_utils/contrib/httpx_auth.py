@@ -15,7 +15,7 @@ class WebhookAuth(httpx.Auth):
     Example
     -------
     >>> from webhook_utils.contrib.httpx_auth import WebhookAuth
-    >>> client = httpx.Client(auth=WebhookAuth("secret", ""))
+    >>> client = httpx.Client(auth=WebhookAuth("secret"))
     >>> client.post("https://example.com/webhook", json={"foo": "bar"})
     """
 
@@ -63,7 +63,7 @@ class WebhookAuth(httpx.Auth):
         """
 
         if request.method in self.methods:
-            signature = self.gen_signature_method(request.content, self.webhook_key)
+            signature = self.gen_signature_method(self.webhook_key, request.content)
             request.headers[self.header_name] = signature
 
         yield request

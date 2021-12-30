@@ -2,7 +2,7 @@ import httpx
 import pytest
 
 from webhook_utils.contrib.httpx_auth import WebhookAuth
-from webhook_utils.crypto import generate_sha1_signature
+from webhook_utils.crypto import generate_sha1_signature, generate_sha256_signature
 
 
 class TestWebhookAuth:
@@ -15,7 +15,7 @@ class TestWebhookAuth:
         return httpx.Client(auth=webhook_auth)
 
     def test_webhook_body_is_signed(self, httpx_client, respx_mock):
-        expected_signature = "aebddf851b0db5f85a3a9da22228ef96fdb124d0251cd48d4fc0f3d08c1a79b4"  # noqa: E501
+        expected_signature = generate_sha256_signature(b"secret", b'{"foo": "bar"}')
         route = respx_mock.post(
             "https://example.com/webhook",
             headers={"X-Webhook-Signature": expected_signature},
@@ -40,7 +40,7 @@ class TestWebhookAuth:
 
     def test_custom_header_name_is_used(self, httpx_client, webhook_auth, respx_mock):
         webhook_auth.header_name = "X-Hub-Signature"
-        expected_signature = "aebddf851b0db5f85a3a9da22228ef96fdb124d0251cd48d4fc0f3d08c1a79b4"  # noqa: E501
+        expected_signature = generate_sha256_signature(b"secret", b'{"foo": "bar"}')
         route = respx_mock.post(
             "https://example.com/webhook",
             headers={"X-Hub-Signature": expected_signature},
@@ -52,7 +52,7 @@ class TestWebhookAuth:
 
     def test_custom_methods_are_supported(self, httpx_client, webhook_auth, respx_mock):
         webhook_auth.methods = {"PUT"}
-        expected_signature = "aebddf851b0db5f85a3a9da22228ef96fdb124d0251cd48d4fc0f3d08c1a79b4"  # noqa: E501
+        expected_signature = generate_sha256_signature(b"secret", b'{"foo": "bar"}')
         route = respx_mock.put(
             "https://example.com/webhook",
             headers={"X-Webhook-Signature": expected_signature},
@@ -66,7 +66,7 @@ class TestWebhookAuth:
         self, httpx_client, webhook_auth, respx_mock
     ):
         webhook_auth.gen_signature_method = generate_sha1_signature
-        expected_signature = "cf1968b0954f5078512814c983937bb3227047e1"
+        expected_signature = generate_sha1_signature(b"secret", b'{"foo": "bar"}')
         route = respx_mock.post(
             "https://example.com/webhook",
             headers={"X-Webhook-Signature": expected_signature},

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "webhook-utils"
-version = "0.4.0-dev"
+version = "0.3.2"
 description = "Short, well documented utilities for interacting with webhooks."
 authors = ["Elijah Wilson <dev.tizz98@gmail.com>"]
 license = "MIT"
@@ -13,10 +13,13 @@ python = "^3.8"
 httpx = {version = "^0.21.1", optional = true}
 fastapi = {version = "^0.70.1", optional = true}
 requests = {version = "^2.26.0", optional = true}
+uvicorn = {extras = ["standard"], version = "^0.16.0", optional = true}
+rich = {version = "^10.16.1", optional = true}
 
 [tool.poetry.extras]
 httpx = ["httpx"]
 fastapi = ["fastapi", "requests"]
+examples = ["fastapi", "uvicorn", "httpx", "rich"]
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"
