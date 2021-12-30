@@ -38,6 +38,3 @@ profile = 'black'
 
 [tool.black]
 target-version = ['py38']
-
-[tool.portray]
-modules = ["webhook_utils"]
