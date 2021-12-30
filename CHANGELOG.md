@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.2] - 2021-12-30
+### Added
+- End-to-end FastAPI examples
+
+### Fixed
+- Fixed `WebhookAuth` signature generation method call parameter order
+
 ## [0.3.1] - 2021-12-30
 ### Removed
 - Remove erroneous `print` in `httpx_auth.py`
